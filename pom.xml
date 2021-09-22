@@ -15,5 +15,7 @@
     <modules>
         <module>kafkaConsumer</module>
         <module>kafkaPublisher</module>
+		<module>gatewayExample</module>
+		<module>apiRest</module>
     </modules>
 </project>

@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+description = """demo"""
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+        
+     maven { url "https://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'2.5.3'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version:'2.5.3'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version:'2.5.3'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.5.3'
+    compile group: 'org.apache.poi', name: 'poi', version:'3.15'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version:'3.15'
+    runtime group: 'com.h2database', name: 'h2', version:'1.4.200'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.5.3'
+    testCompile group: 'io.projectreactor', name: 'reactor-test', version:'3.4.8'
+}
