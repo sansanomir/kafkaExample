@@ -1,11 +1,13 @@
 package com.devcenter.kafkaPublisher.controller;
 
-import com.devcenter.kafkaPublisher.producer.Sender;
+//import com.devcenter.kafkaPublisher.producer.Sender;
+import org.apache.kafka.clients.producer.internals.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +16,18 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/producer")
 public class MensajeController {
 
-    @Autowired
+    /*@Autowired
     @Qualifier("Sender")
-    private Sender sender;
+    private Sender sender;*/
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @PostMapping("/predeterminado")
     public ResponseEntity<String> publicarMensajePredeterminadoEnTopic(HttpServletRequest request) {
-        sender.sendMessage2("test2", "Mensaje predeterminado");
-
+        //sender.sendMessage2("test2", "Mensaje predeterminado");
+        kafkaTemplate.send("test2", "Mensaje predeterminado");
+        System.out.println("Predeterminado");
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -31,7 +37,8 @@ public class MensajeController {
                                                    @PathVariable("message") String messageValue) {
         System.out.println("llamamos a publisher con topic:" + topicValue + " y el mensaje: " + messageValue);
 
-        sender.sendMessage2(topicValue, messageValue);
+        //sender.sendMessage2(topicValue, messageValue);
+        kafkaTemplate.send(topicValue, messageValue);
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -44,7 +51,8 @@ public class MensajeController {
 
         System.out.println("llamamos a publisher con topic:" + topicValue + " y el mensaje: " + messageValue);
 
-        sender.sendMessage2(topicValue, messageValue);
+        //sender.sendMessage2(topicValue, messageValue);
+        kafkaTemplate.send(topicValue, messageValue);
 
         return new ResponseEntity(HttpStatus.OK);
     }
